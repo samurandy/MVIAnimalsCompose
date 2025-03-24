@@ -7,8 +7,9 @@ import com.catalin.mvianimalscompose.api.AnimalRepo
 
 class ViewModelFactory(private val api: AnimalApi): ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
             return MainViewModel(AnimalRepo(api)) as T
         }
         throw IllegalArgumentException("Unknown class name")
