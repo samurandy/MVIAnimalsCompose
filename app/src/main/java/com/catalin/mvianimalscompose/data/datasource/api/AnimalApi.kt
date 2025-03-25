@@ -1,6 +1,6 @@
-package com.catalin.mvianimalscompose.api
+package com.catalin.mvianimalscompose.data.datasource.api
 
-import com.catalin.mvianimalscompose.model.Animal
+import com.catalin.mvianimalscompose.domain.model.Animal
 import retrofit2.http.GET
 
 interface AnimalApi {

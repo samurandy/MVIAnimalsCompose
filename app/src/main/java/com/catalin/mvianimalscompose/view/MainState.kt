@@ -1,6 +1,6 @@
 package com.catalin.mvianimalscompose.view
 
-import com.catalin.mvianimalscompose.model.Animal
+import com.catalin.mvianimalscompose.domain.model.Animal
 
 sealed class MainState {
 

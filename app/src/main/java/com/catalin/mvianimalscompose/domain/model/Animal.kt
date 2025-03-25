@@ -1,4 +1,4 @@
-package com.catalin.mvianimalscompose.model
+package com.catalin.mvianimalscompose.domain.model
 
 data class Animal(
     val name: String = "",

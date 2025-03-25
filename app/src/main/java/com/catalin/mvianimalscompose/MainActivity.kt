@@ -2,6 +2,7 @@ package com.catalin.mvianimalscompose
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
@@ -18,20 +19,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.FragmentActivity
 import coil.compose.rememberAsyncImagePainter
-import com.catalin.mvianimalscompose.api.AnimalService
-import com.catalin.mvianimalscompose.model.Animal
+import com.catalin.mvianimalscompose.domain.model.Animal
 import com.catalin.mvianimalscompose.ui.theme.MVIAnimalsComposeTheme
 import com.catalin.mvianimalscompose.view.MainEffect
 import com.catalin.mvianimalscompose.view.MainIntent
 import com.catalin.mvianimalscompose.view.MainState
 import com.catalin.mvianimalscompose.view.MainViewModel
-import com.catalin.mvianimalscompose.view.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : FragmentActivity() {
-
-    private val mainViewModel: MainViewModel by viewModels { ViewModelFactory(AnimalService.api) }
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +107,7 @@ fun AnimalItem(animal: Animal) {
             .fillMaxWidth()
             .height(100.dp)
     ) {
-        val url = AnimalService.BASE_URL + animal.image
+        val url = BuildConfig.BASE_URL + animal.image
         Image(
             painter = rememberAsyncImagePainter(url),
             contentDescription = null,
