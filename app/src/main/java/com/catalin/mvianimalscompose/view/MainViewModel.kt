@@ -1,5 +1,6 @@
 package com.catalin.mvianimalscompose.view
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+import org.jetbrains.annotations.VisibleForTesting
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +25,11 @@ class MainViewModel @Inject constructor(private val getAnimalsUseCase: GetAnimal
 
     init {
         handleIntent()
+    }
+
+    @VisibleForTesting
+    fun setStateForTesting(newState: MutableState<MainState>) {
+        state = newState
     }
 
     private fun handleIntent() {
@@ -41,8 +48,10 @@ class MainViewModel @Inject constructor(private val getAnimalsUseCase: GetAnimal
 
             getAnimalsUseCase().fold(
                 onSuccess = { state.value = MainState.Animals(it) },
-                onFailure = { _effect.emit(MainEffect.ShowToast(it.message))
-                    MainState.Error(it.message) }
+                onFailure = {
+                    _effect.emit(MainEffect.ShowToast(it.message))
+                    state.value = MainState.Error(it.message)
+                }
             )
         }
     }

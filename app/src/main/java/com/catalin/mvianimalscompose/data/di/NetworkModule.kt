@@ -1,4 +1,4 @@
-package com.catalin.mvianimalscompose.di
+package com.catalin.mvianimalscompose.data.di
 
 import com.catalin.mvianimalscompose.BuildConfig
 import com.catalin.mvianimalscompose.data.datasource.api.AnimalApi
